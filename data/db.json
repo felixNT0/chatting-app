@@ -16,13 +16,5 @@
     }
   ],
   "messages": [],
-  "curerntUser": [
-    {
-      "username": "Ndakolo001",
-      "email": "tsowafelix0@gmail.com",
-      "password": "Felix123@#",
-      "remember": true,
-      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
-    }
-  ]
+  "curerntUser": []
 }
