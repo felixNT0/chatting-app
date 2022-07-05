@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "username": "Ndakolo001",
+      "email": "tsowafelix0@gmail.com",
+      "password": "Felix123@#",
+      "remember": true,
+      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+    },
+    {
+      "username": "Vicky_Blaq",
+      "email": "vickyblaq@gmail.com",
+      "password": "Victor123",
+      "remember": true,
+      "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
+    }
+  ],
+  "messages": [],
+  "curerntUser": [
+    {
+      "username": "Ndakolo001",
+      "email": "tsowafelix0@gmail.com",
+      "password": "Felix123@#",
+      "remember": true,
+      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+    }
+  ]
+}
