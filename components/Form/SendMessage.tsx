@@ -31,9 +31,8 @@ function SendMessage({ refetch, currentUser }: Props) {
     form.resetFields();
   };
   return (
-    <div>
-      <Divider />
-      <Form form={form} onFinish={onFinish}>
+    <div className="mt-5">
+      <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item name="message" style={{ textAlign: "center" }}>
           <Input
             size="large"
@@ -45,7 +44,7 @@ function SendMessage({ refetch, currentUser }: Props) {
           <Button
             loading={addMss.isLoading}
             htmlType="submit"
-            style={{ width: "30%", backgroundColor: "#1877F2" }}
+            style={{ width: "30%", backgroundColor: "#1890ff" }}
             size="large"
             icon={<SendOutlined />}
             type="primary"
@@ -54,6 +53,7 @@ function SendMessage({ refetch, currentUser }: Props) {
           </Button>
         </Form.Item>
       </Form>
+      <Divider className="mb-0" />
     </div>
   );
 }

@@ -19,12 +19,12 @@ const Home: NextPage = () => {
       {result && (
         <div>
           <NavBar currentUser={result} refetch={refetch} />
-          {result.length !== 0 ? (
-            <Messages currentUser={result} />
-          ) : (
+          {result && !result.length ? (
             <h3 className="text-center mt-10">
               Login or Create Account to Join the Live Chat
             </h3>
+          ) : (
+            <Messages currentUser={result} />
           )}
         </div>
       )}

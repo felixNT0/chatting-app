@@ -20,8 +20,9 @@ const Login = () => {
   const onFinish = () => {
     let user = result.find(
       (user: any) =>
-        user.email === form.getFieldsValue().email &&
-        user.password === form.getFieldsValue().password
+        (user.email === form.getFieldsValue().email &&
+          user.password === form.getFieldsValue().password) ||
+        user.remember === form.getFieldsValue().remember
     );
 
     if (!user) {
@@ -35,7 +36,7 @@ const Login = () => {
 
   return (
     <div style={{ marginTop: "15px", textAlign: "center", padding: "0px 30%" }}>
-      <h1>Login with Periconn to Join Chat</h1>
+      <h1>Login with Ndakolo to Join Chat</h1>
       <Form
         onFinish={onFinish}
         form={form}

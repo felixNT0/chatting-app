@@ -1,7 +1,8 @@
-import { Card, Empty } from "antd";
+import { Empty, Form, Input, notification } from "antd";
+import type { NotificationPlacement } from "antd/lib/notification";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import SendMessage from "../Form/SendMessage";
 import MessageCard from "./MessageCard";
@@ -13,12 +14,43 @@ interface Props {
   currentUser: any;
 }
 
-const { Meta } = Card;
+const { Search } = Input;
 
 function Messages({ currentUser }: Props) {
   const { data, refetch, isLoading } = useQuery("messages", fetchMessages);
 
   const result = data && data;
+
+  const [form] = Form.useForm();
+
+  const [searchMessage, setSearchMessage] = useState();
+
+  const handleSearchSubmit = (value: string) => {
+    if (value === "") {
+      openNotification("top");
+      return;
+    }
+    let searched = result.filter(
+      (res: any) =>
+        res.message.toLowerCase().includes(value.toLowerCase()) ||
+        res.user.username.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setSearchMessage(searched);
+  };
+
+  const openNotification = (placement: NotificationPlacement) => {
+    notification.error({
+      message: `Type something don't submit empty value`,
+      placement,
+    });
+  };
+
+  useEffect(() => {
+    if (data) {
+      refetch();
+    }
+  }, [data]);
 
   return (
     <div
@@ -27,7 +59,18 @@ function Messages({ currentUser }: Props) {
         marginTop: "25px",
       }}
     >
-      <h1 className="mb-3 text-center">Periconn</h1>
+      <div className="text-center mb-5">
+        <Search
+          style={{ width: "50%" }}
+          placeholder="input search text"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={handleSearchSubmit}
+        />
+      </div>
+
+      <h1 className="mb-3 text-center">Ndakolo</h1>
       <h3 className="mb-3 text-center">This is a live chatting app</h3>
       <div
         style={{
@@ -35,7 +78,8 @@ function Messages({ currentUser }: Props) {
           border: "1px solid rgb(235, 237, 240)",
         }}
       >
-        {result && result.length === 0 && (
+        <SendMessage refetch={refetch} currentUser={currentUser} />
+        {result && !result.length && (
           <div className="mt-5">
             <Empty />
           </div>
@@ -43,6 +87,7 @@ function Messages({ currentUser }: Props) {
         {result && (
           <div>
             <MessageCard
+              searchMessage={searchMessage}
               result={result}
               refetch={refetch}
               isLoading={isLoading}
@@ -50,7 +95,6 @@ function Messages({ currentUser }: Props) {
             />
           </div>
         )}
-        <SendMessage refetch={refetch} currentUser={currentUser} />
       </div>
     </div>
   );

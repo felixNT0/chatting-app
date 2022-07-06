@@ -43,7 +43,7 @@ const SignUp = () => {
 
   return (
     <div style={{ marginTop: "15px", textAlign: "center", padding: "0px 30%" }}>
-      <h1>Create Account with Periconn to Join Chat</h1>
+      <h1>Create Account with Ndakolo to Join Chat</h1>
       <Form
         onFinish={onFinish}
         form={form}

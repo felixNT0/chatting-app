@@ -15,6 +15,61 @@
       "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
     }
   ],
-  "messages": [],
-  "curerntUser": []
+  "messages": [
+    {
+      "message": "Hello Vicky Blaq ",
+      "id": "f202abf0-87f2-467e-b4ae-d28a31fc6837",
+      "createAt": "2022-07-05T20:52:09.246Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      },
+      "updatedAt": "2022-07-06T04:39:49.904Z"
+    },
+    {
+      "message": "Hello Felix",
+      "id": "ef7c3f13-5f85-4147-ad7f-29db0a87c81a",
+      "createAt": "2022-07-05T20:55:18.852Z",
+      "user": {
+        "username": "Vicky_Blaq",
+        "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
+      }
+    },
+    {
+      "message": "How is everyone naw",
+      "id": "f226b0a0-7c49-459b-b834-afe0d68d8b2f",
+      "createAt": "2022-07-06T08:40:16.371Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      }
+    },
+    {
+      "message": "how far",
+      "id": "b805f275-1c43-4fc7-964d-1c251e9ce551",
+      "createAt": "2022-07-06T08:50:33.999Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      }
+    },
+    {
+      "message": "fine",
+      "id": "cd2444c5-adb9-4659-94a5-0d5020aa1685",
+      "createAt": "2022-07-06T08:50:37.956Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      }
+    }
+  ],
+  "curerntUser": [
+    {
+      "username": "Ndakolo001",
+      "email": "tsowafelix0@gmail.com",
+      "password": "Felix123@#",
+      "remember": true,
+      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+    }
+  ]
 }

@@ -1,3 +1,4 @@
+import { WechatFilled } from "@ant-design/icons";
 import { Button } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
@@ -27,13 +28,14 @@ function NavBar({ currentUser, refetch }: Props) {
   return (
     <div>
       <div className={styles.root}>
+        <WechatFilled style={{ fontSize: "50px", color: "white" }} />
         <h1
           style={{
             color: "white",
             margin: "0px",
           }}
         >
-          Periconn Chatting App
+          Ndakolo Chatting App
         </h1>
         {currentUser.length !== 0 ? (
           <div>
