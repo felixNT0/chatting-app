@@ -2,74 +2,113 @@
   "users": [
     {
       "username": "Ndakolo001",
+      "full_name": "Felix Ndakolo",
       "email": "tsowafelix0@gmail.com",
-      "password": "Felix123@#",
+      "password": "Felix",
       "remember": true,
-      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8",
+      "createdAt": "2022-07-12T09:17:24.608Z",
+      "updatedAt": "2022-07-12T14:26:11.139Z"
     },
     {
       "username": "Vicky_Blaq",
+      "full_name": "Victor Eluyera",
       "email": "vickyblaq@gmail.com",
-      "password": "Victor123",
+      "password": "Vicky",
       "remember": true,
-      "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
+      "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3",
+      "createdAt": "2022-07-12T09:17:24.608Z",
+      "updatedAt": "2022-07-12T14:28:41.603Z"
+    },
+    {
+      "username": "Felixtus",
+      "full_name": "Felix Tsowa",
+      "email": "felixtsowa50@gmail.com",
+      "password": "Felix123@#",
+      "remember": true,
+      "id": "7e764c67-9148-458c-9f7b-8d3f26df1225",
+      "createdAt": "2022-07-21T16:03:01.430Z",
+      "updatedAt": "2022-07-21T16:17:26.972Z"
     }
   ],
   "messages": [
     {
-      "message": "Hello Vicky Blaq ",
-      "id": "f202abf0-87f2-467e-b4ae-d28a31fc6837",
-      "createAt": "2022-07-05T20:52:09.246Z",
+      "message": "Good Morning Here",
+      "id": "957e8433-c562-4ce4-90e9-299a4b431f85",
+      "createAt": "2022-07-12T09:17:24.608Z",
+      "user": {
+        "username": "Felixtus",
+        "id": "29d1e162-30d6-4b78-9d30-e397ff8948ef"
+      }
+    },
+    {
+      "message": "how is the family?",
+      "id": "a7c91f97-ca03-45e3-ad53-015699cfe992",
+      "createAt": "2022-07-12T09:19:38.234Z",
       "user": {
         "username": "Ndakolo001",
         "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
       },
-      "updatedAt": "2022-07-06T04:39:49.904Z"
+      "updatedAt": "2022-07-12T11:43:28.969Z"
     },
     {
-      "message": "Hello Felix",
-      "id": "ef7c3f13-5f85-4147-ad7f-29db0a87c81a",
-      "createAt": "2022-07-05T20:55:18.852Z",
+      "message": "Fine and urs?",
+      "id": "e298e706-1ba6-40b2-9e45-44dfcda062bd",
+      "createAt": "2022-07-12T09:33:56.590Z",
+      "user": {
+        "username": "Felixtus",
+        "id": "29d1e162-30d6-4b78-9d30-e397ff8948ef"
+      }
+    },
+    {
+      "message": "same here bro too",
+      "id": "425fc6e8-757c-4326-8a0e-619db9232b30",
+      "createAt": "2022-07-12T09:34:54.774Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      }
+    },
+    {
+      "message": "How is studies naw?",
+      "id": "9744d7dd-30f3-44e2-a11d-42172be235a9",
+      "createAt": "2022-07-12T09:37:54.010Z",
+      "user": {
+        "username": "Felixtus",
+        "id": "29d1e162-30d6-4b78-9d30-e397ff8948ef"
+      }
+    },
+    {
+      "message": "What's happen here again",
+      "id": "ddea17ac-5930-428f-991d-96da89d8b41c",
+      "createAt": "2022-07-12T14:29:45.143Z",
       "user": {
         "username": "Vicky_Blaq",
-        "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
-      }
-    },
-    {
-      "message": "How is everyone naw",
-      "id": "f226b0a0-7c49-459b-b834-afe0d68d8b2f",
-      "createAt": "2022-07-06T08:40:16.371Z",
-      "user": {
-        "username": "Ndakolo001",
-        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
-      }
-    },
-    {
-      "message": "how far",
-      "id": "b805f275-1c43-4fc7-964d-1c251e9ce551",
-      "createAt": "2022-07-06T08:50:33.999Z",
-      "user": {
-        "username": "Ndakolo001",
-        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
-      }
-    },
-    {
-      "message": "fine",
-      "id": "cd2444c5-adb9-4659-94a5-0d5020aa1685",
-      "createAt": "2022-07-06T08:50:37.956Z",
-      "user": {
-        "username": "Ndakolo001",
-        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
-      }
+        "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3",
+        "updatedAt": "2022-07-12T14:28:41.603Z"
+      },
+      "updatedAt": "2022-07-16T21:43:36.629Z"
     }
   ],
   "curerntUser": [
     {
-      "username": "Ndakolo001",
-      "email": "tsowafelix0@gmail.com",
+      "username": "Felixtus",
+      "full_name": "Felix Tsowa",
+      "email": "felixtsowa50@gmail.com",
       "password": "Felix123@#",
       "remember": true,
-      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      "id": "7e764c67-9148-458c-9f7b-8d3f26df1225",
+      "createdAt": "2022-07-21T16:03:01.430Z",
+      "updatedAt": "2022-07-21T16:17:26.972Z"
+    }
+  ],
+  "likes": [
+    {
+      "isLike": true,
+      "mssId": "957e8433-c562-4ce4-90e9-299a4b431f85",
+      "userId": "e57cc015-9d9f-45cc-88e6-527d1fd73af8",
+      "id": "f2730dd4-c2a4-4d3f-baff-2bfcca3bc7c6",
+      "createdAt": "2022-07-18T13:32:03.218Z"
     }
   ]
 }

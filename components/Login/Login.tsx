@@ -1,3 +1,4 @@
+import { WechatFilled } from "@ant-design/icons";
 import { Alert, Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -20,9 +21,8 @@ const Login = () => {
   const onFinish = () => {
     let user = result.find(
       (user: any) =>
-        (user.email === form.getFieldsValue().email &&
-          user.password === form.getFieldsValue().password) ||
-        user.remember === form.getFieldsValue().remember
+        user.email === form.getFieldsValue().email &&
+        user.password === form.getFieldsValue().password
     );
 
     if (!user) {
@@ -36,6 +36,9 @@ const Login = () => {
 
   return (
     <div style={{ marginTop: "15px", textAlign: "center", padding: "0px 30%" }}>
+      <WechatFilled
+        style={{ fontSize: "70px", color: "#1890ff", marginBottom: "15px" }}
+      />
       <h1>Login with Ndakolo to Join Chat</h1>
       <Form
         onFinish={onFinish}
@@ -74,6 +77,9 @@ const Login = () => {
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked">
           <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+        <Form.Item>
+          <Link href={"/reset-password"}>Forget Password</Link>
         </Form.Item>
         <Form.Item>
           <Button

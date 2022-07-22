@@ -1,3 +1,5 @@
+import { WechatFilled } from "@ant-design/icons";
+import emailjs from "@emailjs/browser";
 import { Alert, Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -20,11 +22,13 @@ const SignUp = () => {
 
   const currentUser = useMutation(postCurrentUser);
 
-  const onFinish = () => {
+  const onFinish = async () => {
     let checkUser = result.find(
       (user: any) =>
         user.email === form.getFieldsValue().email &&
-        user.password === form.getFieldsValue().password
+        user.password === form.getFieldsValue().password &&
+        user.username === form.getFieldsValue().username &&
+        user.full_name === form.getFieldsValue().full_name
     );
     if (checkUser) {
       setError(
@@ -34,7 +38,26 @@ const SignUp = () => {
       );
       return;
     } else {
-      let user = { ...form.getFieldsValue(), id: uuidv4() };
+      let user = {
+        ...form.getFieldsValue(),
+        id: uuidv4(),
+        createdAt: new Date(),
+      };
+      await emailjs
+        .send(
+          "service_e4zpwal",
+          "template_s6z9i7u",
+          form.getFieldsValue(),
+          "Ia3qhzbvtlw8-6ePl"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
       signUpUser.mutate(user);
       currentUser.mutate(user);
       router.push("/");
@@ -43,6 +66,9 @@ const SignUp = () => {
 
   return (
     <div style={{ marginTop: "15px", textAlign: "center", padding: "0px 30%" }}>
+      <WechatFilled
+        style={{ fontSize: "70px", color: "#1890ff", marginBottom: "15px" }}
+      />
       <h1>Create Account with Ndakolo to Join Chat</h1>
       <Form
         onFinish={onFinish}
@@ -66,6 +92,18 @@ const SignUp = () => {
           ]}
         >
           <Input size="large" placeholder="Username" />
+        </Form.Item>
+        <Form.Item
+          label="Full Name"
+          name="full_name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Full Name!",
+            },
+          ]}
+        >
+          <Input size="large" placeholder="Full Name" />
         </Form.Item>
         <Form.Item
           label="Email"

@@ -1,4 +1,4 @@
-import { Empty, Form, Input, notification } from "antd";
+import { Empty, Input, message, notification } from "antd";
 import type { NotificationPlacement } from "antd/lib/notification";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -17,26 +17,35 @@ interface Props {
 const { Search } = Input;
 
 function Messages({ currentUser }: Props) {
-  const { data, refetch, isLoading } = useQuery("messages", fetchMessages);
+  // const [current, setCurrent] = useState(1);
+  const { data, refetch, isLoading } = useQuery(
+    ["messages"],
+    fetchMessages
+    // { keepPreviousData: true }
+  );
+
+  // const onChange = (page: any) => {
+  //   setCurrent(page);
+  // };
 
   const result = data && data;
 
-  const [form] = Form.useForm();
-
-  const [searchMessage, setSearchMessage] = useState();
+  const [searchMessage, setSearchMessage] = useState(result);
 
   const handleSearchSubmit = (value: string) => {
-    if (value === "") {
-      openNotification("top");
-      return;
-    }
     let searched = result.filter(
       (res: any) =>
         res.message.toLowerCase().includes(value.toLowerCase()) ||
         res.user.username.toLowerCase().includes(value.toLowerCase())
     );
-
-    setSearchMessage(searched);
+    if (value === "") {
+      openNotification("top");
+      return;
+    } else if (!searched) {
+      info(value);
+    } else {
+      setSearchMessage(searched);
+    }
   };
 
   const openNotification = (placement: NotificationPlacement) => {
@@ -44,6 +53,10 @@ function Messages({ currentUser }: Props) {
       message: `Type something don't submit empty value`,
       placement,
     });
+  };
+
+  const info = (value: string) => {
+    message.info(`No result found for ${value}`);
   };
 
   useEffect(() => {
@@ -55,7 +68,7 @@ function Messages({ currentUser }: Props) {
   return (
     <div
       style={{
-        padding: "0px 10%",
+        padding: "0px 15%",
         marginTop: "25px",
       }}
     >
@@ -64,18 +77,19 @@ function Messages({ currentUser }: Props) {
           style={{ width: "50%" }}
           placeholder="input search text"
           allowClear
-          enterButton="Search"
+          enterButton
           size="large"
           onSearch={handleSearchSubmit}
         />
       </div>
 
       <h1 className="mb-3 text-center">Ndakolo</h1>
-      <h3 className="mb-3 text-center">This is a live chatting app</h3>
+      <h3 className="mb-3 text-center">This is a chatting app</h3>
       <div
         style={{
           width: "100%",
-          border: "1px solid rgb(235, 237, 240)",
+          border: "1px solid #1890ff",
+          marginBottom: "15px",
         }}
       >
         <SendMessage refetch={refetch} currentUser={currentUser} />
@@ -95,6 +109,15 @@ function Messages({ currentUser }: Props) {
             />
           </div>
         )}
+        {/* <div className="mt-5 mb-5">
+          <Pagination
+            current={current}
+            onChange={onChange}
+            simple
+            defaultCurrent={2}
+            total={50}
+          />
+        </div> */}
       </div>
     </div>
   );

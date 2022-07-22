@@ -1,34 +1,31 @@
 import {
   DeleteFilled,
-  EditOutlined,
+  DislikeOutlined,
+  EditFilled,
   ExclamationCircleOutlined,
+  LikeFilled,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Typography,
-} from "antd";
+import { Avatar, Card, Col, Form, Input, Modal, Row, Typography } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import styles from "./MessageCard.module.css";
-import { deleteMessages, editMessage, fetchMessagesById } from "./query";
-
-dayjs.extend(relativeTime);
+import {
+  deleteLikes,
+  deleteMessages,
+  editMessage,
+  fetchLikes,
+  fetchMessagesById,
+  likeMessage,
+} from "./query";
 
 const { Meta } = Card;
 
 const { confirm } = Modal;
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 interface Props {
   result: any | undefined;
@@ -36,6 +33,42 @@ interface Props {
   isLoading: boolean;
   currentUser: any;
   searchMessage: any;
+}
+
+type MessageAuthorType = {
+  user: any;
+  curentUser: any;
+};
+
+export function MessageAuthor(props: MessageAuthorType) {
+  dayjs.extend(relativeTime);
+
+  const linkToProfile = `${props.user.username}`;
+
+  const text = `Posted by`;
+
+  const timePosted = `${dayjs(props.user.createdAt).fromNow()}`;
+
+  return (
+    <div className={styles.user}>
+      <Text style={{ fontSize: "12px" }} type="secondary">
+        {text}
+      </Text>
+      {props.curentUser.id === props.user.id ? (
+        <Link href={`/profile/${props.user.id}`}>
+          <a style={{ fontSize: "12px", color: "#1890ff" }}>You</a>
+        </Link>
+      ) : (
+        <Link href={`/profile/${props.user.id}`}>
+          <a style={{ fontSize: "12px", color: "#1890ff" }}>{linkToProfile}</a>
+        </Link>
+      )}
+
+      <Text style={{ fontSize: "12px" }} type="secondary">
+        {timePosted}
+      </Text>
+    </div>
+  );
 }
 
 function MessageCard({
@@ -72,60 +105,80 @@ function MessageCard({
 
   return (
     <div>
-      <div
-        style={{
-          textAlign: "center",
-          padding: "25px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div>
         <Row gutter={[16, 16]}>
           <Col span={24}>
             {searchMessage && !searchMessage.length && (
               <h3>Sorry, Can't Find Message!</h3>
             )}
             {(searchMessage ? searchMessage : result).map((mss: any) => (
-              <Card
-                key={mss.id}
-                style={{ width: 300, marginTop: 16 }}
-                loading={isLoading}
-              >
-                <Meta
-                  avatar={
-                    <Avatar src="https://lh3.googleusercontent.com/a-/AOh14Gi9NB4fM57ogfxOZ1v-k4Kxjj8xcZIzgK1S3aBuXg=s60-c-rg-br100" />
-                  }
-                  title={mss.message}
-                  description={
-                    <Text type="secondary">
-                      {mss.user.username} posted{" "}
-                      {dayjs(mss.createdAt).fromNow()}
-                    </Text>
-                  }
-                />
-                {user.id === mss.user.id && (
-                  <>
-                    <Divider className="mt-3 mb-1" />
-                    <div className={styles.root}>
-                      <Button
-                        type="text"
-                        onClick={() => showDeleteConfirm(mss.id)}
-                        icon={<DeleteFilled />}
+              <div key={mss.id} className="mb-5">
+                {user.id === mss.user.id ? (
+                  <div className="d-flex justify-end pr-5">
+                    <Card
+                      key={mss.id}
+                      style={{
+                        boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+                        width: "50%",
+                        marginTop: 16,
+                        border: "1px solid #1890ff",
+                      }}
+                      actions={[
+                        <LikeButton
+                          key="like"
+                          currentUserId={user.id}
+                          id={mss.id}
+                        />,
+                        <DeleteFilled
+                          style={{ color: "#1890ff" }}
+                          key="delect"
+                          onClick={() => showDeleteConfirm(mss.id)}
+                        />,
+                        <EditModal key="edit" id={mss.id} refetch={refetch} />,
+                      ]}
+                    >
+                      <Meta
+                        avatar={
+                          <Avatar src="https://joeschmoe.io/api/v1/random" />
+                        }
+                        description={<Title level={5}>{mss.message}</Title>}
+                        title={
+                          <MessageAuthor user={mss.user} curentUser={user} />
+                        }
                       />
-                      <EditModal id={mss.id} refetch={refetch} />
-                    </div>
-                  </>
+                    </Card>
+                  </div>
+                ) : (
+                  <div className="d-flex justify-start pl-5">
+                    <Card
+                      key={mss.id}
+                      style={{
+                        boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+                        width: "50%",
+                        marginTop: 16,
+                        border: "1px solid #1890ff",
+                      }}
+                      actions={[
+                        <LikeButton
+                          key="like"
+                          currentUserId={user.id}
+                          id={mss.id}
+                        />,
+                      ]}
+                    >
+                      <Meta
+                        avatar={
+                          <Avatar src="https://joeschmoe.io/api/v1/random" />
+                        }
+                        description={<Title level={5}>{mss.message}</Title>}
+                        title={
+                          <MessageAuthor user={mss.user} curentUser={user} />
+                        }
+                      />
+                    </Card>
+                  </div>
                 )}
-                {mss.updatedAt && (
-                  <>
-                    <Divider className="mt-3 mb-1" />
-                    <Text type="secondary" className="text-center mt-3">
-                      Edited {dayjs(mss.updatedAt).fromNow()}
-                    </Text>
-                  </>
-                )}
-              </Card>
+              </div>
             ))}
           </Col>
         </Row>
@@ -169,7 +222,8 @@ export const EditModal = ({ refetch, id }: UserProps) => {
   return (
     <>
       <>
-        <Button type="text" onClick={showModal} icon={<EditOutlined />} />
+        <EditFilled style={{ color: "#1890ff" }} onClick={showModal} />
+
         {result && (
           <Form layout="vertical" form={form}>
             <Modal
@@ -198,5 +252,96 @@ export const EditModal = ({ refetch, id }: UserProps) => {
     </>
   );
 };
+
+type LikeProps = {
+  currentUserId: string;
+  id: string;
+};
+
+export function LikeButton({ currentUserId, id }: LikeProps) {
+  const [isLike, setIsLike] = useState(false);
+
+  const { data, refetch } = useQuery("LIKES", fetchLikes);
+
+  const liked = data && data;
+
+  const deleteLike = useMutation(deleteLikes, {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
+
+  const { mutate } = useMutation(likeMessage, {
+    onSuccess: (res) => {
+      console.log(res);
+      // refetch();
+    },
+  });
+
+  // const openNotification = (placement: NotificationPlacement) => {
+  //   notification.info({
+  //     message: `Login To Like this Topic`,
+  //     placement,
+  //   });
+  // };
+
+  const [likes, setLikes] = useState(0);
+
+  const like = () => {
+    setIsLike(true);
+    setLikes(likes + 1);
+  };
+
+  const dislike = () => {
+    setIsLike(false);
+    setLikes(likes - 1);
+  };
+
+  const toggleLike = () => {
+    if (like.length > 0) {
+      const checkId = liked.find((mssId: any) => mssId.mssId === id);
+      console.log(!checkId.isLike);
+    }
+    // if (!checkId.isLike) {
+    // mutate({
+    //   isLike: true,
+    //   mssId: id,
+    //   userId: currentUserId,
+    //   id: uuidv4(),
+    //   createdAt: new Date(),
+    // });
+    // } else {
+    //   deleteLike.mutate(checkId.id);
+    // }
+    // console.log({
+    //   isLike: true,
+    //   mssId: id,
+    //   userId: currentUserId,
+    //   id: uuidv4(),
+    //   createdAt: new Date(),
+    // });
+  };
+
+  const iconProps = { onClick: toggleLike, className: styles.like_icon };
+
+  // useEffect(() => {
+  //   if (likes) {
+  //     setIsLike(liked.isLiked ? true : false);
+  //   }
+  // }, [likes]);
+
+  return (
+    <>
+      <div className={styles.like}>
+        {isLike ? (
+          <LikeFilled {...iconProps} />
+        ) : (
+          <DislikeOutlined {...iconProps} />
+        )}
+        <p className={styles.like_count}>{likes}</p>
+      </div>
+    </>
+  );
+}
 
 export default MessageCard;

@@ -1,9 +1,11 @@
-import { SendOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input } from "antd";
+import { Divider, Form, Input, notification } from "antd";
+import type { NotificationPlacement } from "antd/lib/notification";
 import React from "react";
 import { useMutation } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import { addMessage } from "./query";
+
+const { Search } = Input;
 
 interface Props {
   refetch: any;
@@ -19,40 +21,37 @@ function SendMessage({ refetch, currentUser }: Props) {
     },
   });
 
+  const openNotification = (placement: NotificationPlacement) => {
+    notification.error({
+      message: `Type something don't submit empty value`,
+      placement,
+    });
+  };
+
   const User = currentUser.find((user: any) => user.email === user.email);
 
-  const onFinish = () => {
-    const value = form.getFieldsValue();
+  const onFinish = (value: string) => {
+    if (value === "") {
+      openNotification("top");
+      return;
+    } else {
+      const message = { message: value };
 
-    const { remember, password, email, ...user } = User;
+      const { remember, password, email, ...user } = User;
 
-    addMss.mutate({ ...value, id: uuidv4(), createAt: new Date(), user });
-
-    form.resetFields();
+      addMss.mutate({ ...message, id: uuidv4(), createAt: new Date(), user });
+    }
   };
   return (
-    <div className="mt-5">
-      <Form form={form} onFinish={onFinish} layout="vertical">
-        <Form.Item name="message" style={{ textAlign: "center" }}>
-          <Input
-            size="large"
-            style={{ width: "70%" }}
-            placeholder="Add Your Message Here..."
-          />
-        </Form.Item>
-        <Form.Item style={{ textAlign: "center" }}>
-          <Button
-            loading={addMss.isLoading}
-            htmlType="submit"
-            style={{ width: "30%", backgroundColor: "#1890ff" }}
-            size="large"
-            icon={<SendOutlined />}
-            type="primary"
-          >
-            Send
-          </Button>
-        </Form.Item>
-      </Form>
+    <div className="mt-5 text-center">
+      <Search
+        style={{ width: "50%" }}
+        placeholder="Type your message here..."
+        allowClear
+        enterButton="Send"
+        size="large"
+        onSearch={onFinish}
+      />
       <Divider className="mb-0" />
     </div>
   );

@@ -20,6 +20,8 @@ function NavBar({ currentUser, refetch }: Props) {
     },
   });
 
+  const user = currentUser.find((user: any) => user.id === user.id);
+
   const logout = () => {
     const logOut = currentUser.find((val: any) => val.id === val.id);
     delCurentUser.mutate(logOut.id);
@@ -28,7 +30,10 @@ function NavBar({ currentUser, refetch }: Props) {
   return (
     <div>
       <div className={styles.root}>
-        <WechatFilled style={{ fontSize: "50px", color: "white" }} />
+        <WechatFilled
+          onClick={() => router.push("/")}
+          style={{ fontSize: "50px", color: "white", cursor: "pointer" }}
+        />
         <h1
           style={{
             color: "white",
@@ -38,7 +43,22 @@ function NavBar({ currentUser, refetch }: Props) {
           Ndakolo Chatting App
         </h1>
         {currentUser.length !== 0 ? (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              gap: "25px",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              onClick={() => router.push(`/profile/${user.id}`)}
+              style={{
+                color: "white",
+              }}
+              type="ghost"
+            >
+              Profile
+            </Button>
             <Button
               onClick={logout}
               style={{

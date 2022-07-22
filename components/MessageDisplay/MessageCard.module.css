@@ -4,3 +4,22 @@
   justify-content: center;
   gap: 25px;
 }
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.like {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.like_icon {
+  color: #1890ff;
+}
+
+.like_count {
+  margin: 0 !important;
+}
