@@ -40,6 +40,7 @@ function SendMessage({ refetch, currentUser }: Props) {
       const { remember, password, email, ...user } = User;
 
       addMss.mutate({ ...message, id: uuidv4(), createAt: new Date(), user });
+     
     }
   };
   return (

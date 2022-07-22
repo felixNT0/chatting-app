@@ -88,6 +88,18 @@
         "updatedAt": "2022-07-12T14:28:41.603Z"
       },
       "updatedAt": "2022-07-16T21:43:36.629Z"
+    },
+    {
+      "message": "Hello",
+      "id": "f4a9e4ae-fd0b-4979-94a0-96c0d0ed7100",
+      "createAt": "2022-07-22T11:10:41.739Z",
+      "user": {
+        "username": "Felixtus",
+        "full_name": "Felix Tsowa",
+        "id": "7e764c67-9148-458c-9f7b-8d3f26df1225",
+        "createdAt": "2022-07-21T16:03:01.430Z",
+        "updatedAt": "2022-07-21T16:17:26.972Z"
+      }
     }
   ],
   "curerntUser": [

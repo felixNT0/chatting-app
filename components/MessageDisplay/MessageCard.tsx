@@ -108,9 +108,9 @@ function MessageCard({
       <div>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            {searchMessage && !searchMessage.length && (
+            {/* {searchMessage && !searchMessage.length && (
               <h3>Sorry, Can't Find Message!</h3>
-            )}
+            )} */}
             {(searchMessage ? searchMessage : result).map((mss: any) => (
               <div key={mss.id} className="mb-5">
                 {user.id === mss.user.id ? (

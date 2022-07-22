@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import Messages from "../components/MessageDisplay/Messages";
 import NavBar from "../components/NavBar/NavBar";
@@ -10,9 +9,11 @@ const Home: NextPage = () => {
 
   const result = data && data;
 
-  useEffect(() => {
-    refetch();
-  }, []);
+  // useEffect(() => {
+  //   if (data) {
+  //     refetch();
+  //   }
+  // }, [data]);
 
   return (
     <div>

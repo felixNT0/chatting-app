@@ -2,7 +2,7 @@ import { Empty, Input, message, notification } from "antd";
 import type { NotificationPlacement } from "antd/lib/notification";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import SendMessage from "../Form/SendMessage";
 import MessageCard from "./MessageCard";
@@ -59,11 +59,11 @@ function Messages({ currentUser }: Props) {
     message.info(`No result found for ${value}`);
   };
 
-  useEffect(() => {
-    if (data) {
-      refetch();
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     refetch();
+  //   }
+  // }, [data]);
 
   return (
     <div

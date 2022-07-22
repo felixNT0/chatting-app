@@ -59,7 +59,7 @@ function Profile({ user, messages }: Props) {
         <div>
           {findUserMessage &&
             findUserMessage.map((mss: any, index: number) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center ma-10">
                 <Card
                   className="text-center"
                   style={{
@@ -73,9 +73,7 @@ function Profile({ user, messages }: Props) {
                   <Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                     description={<Title level={5}>{mss.message}</Title>}
-                    title={
-                      <MessageAuthor user={mss.user} curentUser={undefined} />
-                    }
+                    title={<MessageAuthor user={mss.user} curentUser={user} />}
                   />
                 </Card>
               </div>
