@@ -4,11 +4,11 @@
       "username": "Ndakolo001",
       "full_name": "Felix Ndakolo",
       "email": "tsowafelix0@gmail.com",
-      "password": "Felix",
+      "password": "Felix123@#",
       "remember": true,
       "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8",
       "createdAt": "2022-07-12T09:17:24.608Z",
-      "updatedAt": "2022-07-12T14:26:11.139Z"
+      "updatedAt": "2022-08-15T08:50:26.073Z"
     },
     {
       "username": "Vicky_Blaq",
@@ -61,15 +61,6 @@
       }
     },
     {
-      "message": "same here bro too",
-      "id": "425fc6e8-757c-4326-8a0e-619db9232b30",
-      "createAt": "2022-07-12T09:34:54.774Z",
-      "user": {
-        "username": "Ndakolo001",
-        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
-      }
-    },
-    {
       "message": "How is studies naw?",
       "id": "9744d7dd-30f3-44e2-a11d-42172be235a9",
       "createAt": "2022-07-12T09:37:54.010Z",
@@ -84,8 +75,7 @@
       "createAt": "2022-07-12T14:29:45.143Z",
       "user": {
         "username": "Vicky_Blaq",
-        "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3",
-        "updatedAt": "2022-07-12T14:28:41.603Z"
+        "id": "ee2de4a3-9804-4602-a3d7-0c5602697ec3"
       },
       "updatedAt": "2022-07-16T21:43:36.629Z"
     },
@@ -95,23 +85,38 @@
       "createAt": "2022-07-22T11:10:41.739Z",
       "user": {
         "username": "Felixtus",
-        "full_name": "Felix Tsowa",
-        "id": "7e764c67-9148-458c-9f7b-8d3f26df1225",
-        "createdAt": "2022-07-21T16:03:01.430Z",
-        "updatedAt": "2022-07-21T16:17:26.972Z"
+        "id": "7e764c67-9148-458c-9f7b-8d3f26df1225"
+      }
+    },
+    {
+      "message": "Good",
+      "id": "a6b238e2-c6b1-43c4-9043-a4751f5a0bde",
+      "createAt": "2022-07-29T08:36:25.601Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
+      }
+    },
+    {
+      "message": "Good Too",
+      "id": "f0a7a985-984a-4c72-8f4f-4f0db5c227ca",
+      "createAt": "2022-07-29T08:36:55.332Z",
+      "user": {
+        "username": "Ndakolo001",
+        "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8"
       }
     }
   ],
   "curerntUser": [
     {
-      "username": "Felixtus",
-      "full_name": "Felix Tsowa",
-      "email": "felixtsowa50@gmail.com",
-      "password": "Felix123@#",
+      "username": "Ndakolo001",
+      "full_name": "Felix Ndakolo",
+      "email": "tsowafelix0@gmail.com",
+      "password": "Felix",
       "remember": true,
-      "id": "7e764c67-9148-458c-9f7b-8d3f26df1225",
-      "createdAt": "2022-07-21T16:03:01.430Z",
-      "updatedAt": "2022-07-21T16:17:26.972Z"
+      "id": "e57cc015-9d9f-45cc-88e6-527d1fd73af8",
+      "createdAt": "2022-07-12T09:17:24.608Z",
+      "updatedAt": "2022-07-29T08:34:25.133Z"
     }
   ],
   "likes": [

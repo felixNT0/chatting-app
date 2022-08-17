@@ -1,10 +1,6 @@
-import axios from "axios";
+import http from "../../libs/http";
 
-export const resetPassword = async (value: { id: string; data: any }) => {
-  try {
-    const { id, data } = value;
-    return await axios.patch(`http://localhost:8000/users/${id}`, data);
-  } catch (err) {
-    console.log(err);
-  }
+export const resetPassword = (value: { id: string; data: any }) => {
+  const { id, data } = value;
+  return http.patch(`/users/${id}`, data);
 };

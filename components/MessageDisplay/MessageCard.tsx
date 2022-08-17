@@ -33,6 +33,7 @@ interface Props {
   isLoading: boolean;
   currentUser: any;
   searchMessage: any;
+  values: string;
 }
 
 type MessageAuthorType = {
@@ -77,6 +78,7 @@ function MessageCard({
   isLoading,
   currentUser,
   searchMessage,
+  values,
 }: Props) {
   const user = currentUser.find((user: any) => user.email);
   const deleteMessageMutation = useMutation(deleteMessages, {
@@ -108,9 +110,7 @@ function MessageCard({
       <div>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            {/* {searchMessage && !searchMessage.length && (
-              <h3>Sorry, Can't Find Message!</h3>
-            )} */}
+            {/* {!searchMessage && !result && <p>{`Search ${values} Not Found`}</p>} */}
             {(searchMessage ? searchMessage : result).map((mss: any) => (
               <div key={mss.id} className="mb-5">
                 {user.id === mss.user.id ? (
@@ -198,8 +198,6 @@ export const EditModal = ({ refetch, id }: UserProps) => {
 
   const { data } = useQuery(["messageById", id], () => fetchMessagesById(id));
 
-  const result = data && data;
-
   const { mutate } = useMutation(editMessage, {
     onSuccess: (res) => {
       refetch();
@@ -224,7 +222,7 @@ export const EditModal = ({ refetch, id }: UserProps) => {
       <>
         <EditFilled style={{ color: "#1890ff" }} onClick={showModal} />
 
-        {result && (
+        {data && (
           <Form layout="vertical" form={form}>
             <Modal
               centered
@@ -237,7 +235,7 @@ export const EditModal = ({ refetch, id }: UserProps) => {
               <Form.Item
                 name="message"
                 style={{ textAlign: "center" }}
-                initialValue={result.message}
+                initialValue={data.message}
               >
                 <Input
                   size="large"

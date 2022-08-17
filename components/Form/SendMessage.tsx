@@ -37,10 +37,17 @@ function SendMessage({ refetch, currentUser }: Props) {
     } else {
       const message = { message: value };
 
-      const { remember, password, email, ...user } = User;
+      const {
+        remember,
+        password,
+        email,
+        full_name,
+        createdAt,
+        updatedAt,
+        ...user
+      } = User;
 
       addMss.mutate({ ...message, id: uuidv4(), createAt: new Date(), user });
-     
     }
   };
   return (

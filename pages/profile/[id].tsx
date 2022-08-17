@@ -18,11 +18,11 @@ function ProfilePage() {
 
   const currentUseDetails = useQuery("users", fetchCurrentUser);
 
-  const currentUser = currentUseDetails.data && currentUseDetails.data;
+  const currentUser = currentUseDetails?.data && currentUseDetails.data;
 
   const allMessages = useQuery("messages", fetchMessages);
 
-  const messages = allMessages.data && allMessages.data;
+  const messages = allMessages?.data && allMessages.data;
 
   useEffect(() => {
     if (id) {
