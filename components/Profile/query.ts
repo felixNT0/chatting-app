@@ -1,10 +1,5 @@
-import axios from "axios";
+import http from "../../libs/http";
 
-export const fetchUserById = async (id: string) => {
-  try {
-    const response = await axios.get(`http://localhost:8000/users/${id}`);
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+export const fetchUserById = (id: string) => {
+  return http.get(`/users/${id}`);
 };

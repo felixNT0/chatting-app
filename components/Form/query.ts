@@ -1,9 +1,3 @@
-import axios from "axios";
+import http from "../../libs/http";
 
-export const addMessage = async (data: any) => {
-  try {
-    return await axios.post("http://localhost:8000/messages", data);
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const addMessage = (data: any) => http.post(`/messages`, data);
