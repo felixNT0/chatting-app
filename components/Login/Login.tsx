@@ -1,9 +1,11 @@
-import { WechatFilled } from "@ant-design/icons";
-import { Alert, Button, Checkbox, Form, Input } from "antd";
+import { KeyOutlined, MailOutlined, WechatFilled } from "@ant-design/icons";
+import { Alert, Avatar, Button, Checkbox, Form, Input, Typography } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
+import { setAuthToken } from "../../utils/authToken";
+import styles from "./Login.module.css";
 import { fetchUser, postCurrentUser } from "./query";
 
 const Login = () => {
@@ -19,6 +21,7 @@ const Login = () => {
   const loginUser = useMutation(postCurrentUser);
 
   const onFinish = () => {
+    const users: any = [];
     let user = result.find(
       (user: any) =>
         user.email === form.getFieldsValue().email &&
@@ -29,17 +32,34 @@ const Login = () => {
       setError("Invalid email/password");
       return;
     } else {
-      loginUser.mutate(user);
+      users.push(user);
+      setAuthToken({ currentUser: users });
       router.push("/");
     }
   };
 
   return (
-    <div style={{ marginTop: "15px", textAlign: "center", padding: "0px 30%" }}>
-      <WechatFilled
-        style={{ fontSize: "70px", color: "#1890ff", marginBottom: "15px" }}
-      />
-      <h1>Login with Ndakolo to Join Chat</h1>
+    <div className={styles.root}>
+      <br />
+      <Avatar size={85} className={styles.avatar}>
+        <WechatFilled style={{ fontSize: "70px", color: "#FFFFFF" }} />
+      </Avatar>
+      <h1
+        style={{
+          color: "#1890FF",
+          marginTop: "15px",
+          fontSize: "50px",
+          fontWeight: "700",
+        }}
+      >
+        Login
+      </h1>
+      <div className="mb-5">
+        <p>Don’t have an account?</p>
+        <Link href="/signup">
+          <Typography.Link>Create your account</Typography.Link>
+        </Link>
+      </div>
       <Form
         onFinish={onFinish}
         form={form}
@@ -61,7 +81,12 @@ const Login = () => {
             },
           ]}
         >
-          <Input size="large" placeholder="Email" />
+          <Input
+            prefix={<MailOutlined />}
+            className={styles.input_border_radius}
+            size="large"
+            placeholder="Email"
+          />
         </Form.Item>
         <Form.Item
           label="Password"
@@ -73,16 +98,24 @@ const Login = () => {
             },
           ]}
         >
-          <Input.Password size="large" placeholder="Password" />
+          <Input.Password
+            prefix={<KeyOutlined />}
+            className={styles.input_border_radius}
+            size="large"
+            placeholder="Password"
+          />
         </Form.Item>
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-        <Form.Item>
-          <Link href={"/reset-password"}>Forget Password</Link>
-        </Form.Item>
+        <div className={styles.login_option}>
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+          <Form.Item>
+            <Link href={"/reset-password"}>Forget Password?</Link>
+          </Form.Item>
+        </div>
         <Form.Item>
           <Button
+            className={styles.input_border_radius}
             loading={loginUser.isLoading}
             type="primary"
             htmlType="submit"
@@ -92,8 +125,6 @@ const Login = () => {
             Join Chat
           </Button>
         </Form.Item>
-        <br />
-        Or <Link href="/signup">create account now!</Link>
       </Form>
     </div>
   );

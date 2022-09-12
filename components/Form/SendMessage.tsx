@@ -1,6 +1,5 @@
 import { Divider, Form, Input, notification } from "antd";
 import type { NotificationPlacement } from "antd/lib/notification";
-import React from "react";
 import { useMutation } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import { addMessage } from "./query";
@@ -9,7 +8,7 @@ const { Search } = Input;
 
 interface Props {
   refetch: any;
-  currentUser: any;
+  currentUser: any[] | null;
 }
 
 function SendMessage({ refetch, currentUser }: Props) {
@@ -28,7 +27,7 @@ function SendMessage({ refetch, currentUser }: Props) {
     });
   };
 
-  const User = currentUser.find((user: any) => user.email === user.email);
+  const User = currentUser?.find((user: any) => user.email === user.email);
 
   const onFinish = (value: string) => {
     if (value === "") {
@@ -40,7 +39,6 @@ function SendMessage({ refetch, currentUser }: Props) {
       const { remember, password, email, ...user } = User;
 
       addMss.mutate({ ...message, id: uuidv4(), createAt: new Date(), user });
-     
     }
   };
   return (

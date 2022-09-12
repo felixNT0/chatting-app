@@ -1,38 +1,28 @@
 import axios from "axios";
+import http from "../../libs/http";
 
-export const fetchMessages = async (page: any) => {
+export const searchMessages = async (message: string) => {
   try {
-    const response = await axios.get(`http://localhost:8000/messages`);
+    const response = await axios.get(
+      `http://localhost:8000/messages?q=${message}`
+    );
     return response.data;
   } catch (err) {
     console.log(err);
   }
 };
 
-export const fetchMessagesById = async (id: string) => {
-  try {
-    const response = await axios.get(`http://localhost:8000/messages/${id}`);
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+export const fetchMessages = () => http.get(`/messages`);
+
+export const fetchMessagesById = (id: string) => http.get(`/messages/${id}`);
+
+export const deleteMessages = (id: string) => {
+  return http.delete(`/messages/${id}`);
 };
 
-export const deleteMessages = async (id: string) => {
-  try {
-    return await axios.delete(`http://localhost:8000/messages/${id}`);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const editMessage = async (value: { id: string; data: any }) => {
-  try {
-    const { id, data } = value;
-    return await axios.patch(`http://localhost:8000/messages/${id}`, data);
-  } catch (err) {
-    console.log(err);
-  }
+export const editMessage = (value: { id: string; data: any }) => {
+  const { id, data } = value;
+  return http.patch(`/messages/${id}`, data);
 };
 
 export const likeMessage = async (data: any) => {
