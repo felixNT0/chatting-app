@@ -1,30 +1,21 @@
 import { WechatFilled } from "@ant-design/icons";
 import { Button } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
-import { useMutation } from "react-query";
+import { UserType } from "../../types/users";
+import { removeAuthToken } from "../../utils/authToken";
 import styles from "./NavBar.module.css";
-import { deleteCurrentUser } from "./query";
 
 interface Props {
-  currentUser: any;
-  refetch: any;
+  currentUser: UserType[] | null;
 }
 
-function NavBar({ currentUser, refetch }: Props) {
+function NavBar({ currentUser }: Props) {
   const router = useRouter();
 
-  const delCurentUser = useMutation(deleteCurrentUser, {
-    onSuccess: () => {
-      refetch();
-    },
-  });
-
-  const user = currentUser.find((user: any) => user.id === user.id);
+  const user = currentUser?.find((user: any) => user.id === user.id);
 
   const logout = () => {
-    const logOut = currentUser.find((val: any) => val.id === val.id);
-    delCurentUser.mutate(logOut.id);
+    removeAuthToken();
   };
 
   return (
@@ -42,7 +33,7 @@ function NavBar({ currentUser, refetch }: Props) {
         >
           Ndakolo Chatting App
         </h1>
-        {currentUser.length !== 0 ? (
+        {currentUser !== null ? (
           <div
             style={{
               display: "flex",
@@ -50,8 +41,18 @@ function NavBar({ currentUser, refetch }: Props) {
               alignItems: "center",
             }}
           >
+            {/* <Button
+              onClick={() => router.push(`/chat-room`)}
+              style={{
+                color: "white",
+              }}
+              type="ghost"
+              disabled
+            >
+              Chat Room
+            </Button> */}
             <Button
-              onClick={() => router.push(`/profile/${user.id}`)}
+              onClick={() => router.push(`/profile/${user?.id}`)}
               style={{
                 color: "white",
               }}

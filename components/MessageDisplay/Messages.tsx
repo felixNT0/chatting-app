@@ -1,17 +1,18 @@
-import { Empty, Input, message, notification } from "antd";
+import { Button, Empty, Input, notification } from "antd";
 import type { NotificationPlacement } from "antd/lib/notification";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
+import { UserType } from "../../types/users";
 import SendMessage from "../Form/SendMessage";
 import MessageCard from "./MessageCard";
-import { fetchMessages } from "./query";
+import { fetchMessages, searchMessages } from "./query";
 
 dayjs.extend(relativeTime);
 
 interface Props {
-  currentUser: any;
+  currentUser: UserType[] | null;
 }
 
 const { Search } = Input;
@@ -24,46 +25,51 @@ function Messages({ currentUser }: Props) {
     // { keepPreviousData: true }
   );
 
+  const audioPlayer = useRef<any>(null);
+
+  function playAudio() {
+    audioPlayer.current.play();
+  }
+
   // const onChange = (page: any) => {
   //   setCurrent(page);
   // };
 
   const result = data && data;
 
-  const [searchMessage, setSearchMessage] = useState(result);
+  const [values, setValues] = useState("");
+
+  const searchResult = useQuery(["searchMessages", values], () =>
+    searchMessages(values)
+  );
+
+  const searchedMessage = searchResult.data && searchResult.data;
 
   const handleSearchSubmit = (value: string) => {
-    let searched = result.filter(
-      (res: any) =>
-        res.message.toLowerCase().includes(value.toLowerCase()) ||
-        res.user.username.toLowerCase().includes(value.toLowerCase())
-    );
-    if (value === "") {
-      openNotification("top");
-      return;
-    } else if (!searched) {
-      info(value);
-    } else {
-      setSearchMessage(searched);
+    if (value) {
+      setValues(value);
+    } else if (value && searchResult.data.length === 0) {
+      openNotification("top", value);
+    } else if (value === "") {
+      refetch();
     }
   };
 
-  const openNotification = (placement: NotificationPlacement) => {
+  const openNotification = (
+    placement: NotificationPlacement,
+    value: string
+  ) => {
     notification.error({
-      message: `Type something don't submit empty value`,
+      message: `${value} Search not Found`,
       placement,
     });
   };
 
-  const info = (value: string) => {
-    message.info(`No result found for ${value}`);
-  };
-
-  // useEffect(() => {
-  //   if (data) {
-  //     refetch();
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (values === "") {
+      refetch();
+    }
+  }, [values]);
 
   return (
     <div
@@ -72,8 +78,13 @@ function Messages({ currentUser }: Props) {
         marginTop: "25px",
       }}
     >
+      <Button type="primary" onClick={playAudio}>
+        Play
+      </Button>
+      <audio ref={audioPlayer} src={"/sound.wav"} />
       <div className="text-center mb-5">
         <Search
+          required
           style={{ width: "50%" }}
           placeholder="input search text"
           allowClear
@@ -98,10 +109,11 @@ function Messages({ currentUser }: Props) {
             <Empty />
           </div>
         )}
-        {result && (
+        {result && searchedMessage && (
           <div>
             <MessageCard
-              searchMessage={searchMessage}
+              values={values}
+              searchMessage={searchedMessage}
               result={result}
               refetch={refetch}
               isLoading={isLoading}

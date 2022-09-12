@@ -1,34 +1,23 @@
 import type { NextPage } from "next";
-import { useQuery } from "react-query";
 import Messages from "../components/MessageDisplay/Messages";
 import NavBar from "../components/NavBar/NavBar";
-import { fetchCurrentUser } from "../components/NavBar/query";
+import { getAuthToken } from "../utils/authToken";
 
 const Home: NextPage = () => {
-  const { data, refetch } = useQuery("users", fetchCurrentUser);
-
-  const result = data && data;
-
-  // useEffect(() => {
-  //   if (data) {
-  //     refetch();
-  //   }
-  // }, [data]);
+  const { currentUser } = getAuthToken();
 
   return (
     <div>
-      {result && (
-        <div>
-          <NavBar currentUser={result} refetch={refetch} />
-          {result && !result.length ? (
-            <h3 className="text-center mt-10">
-              Login or Create Account to Join the Live Chat
-            </h3>
-          ) : (
-            <Messages currentUser={result} />
-          )}
-        </div>
-      )}
+      <div>
+        <NavBar currentUser={currentUser} />
+        {currentUser == null ? (
+          <h3 className="text-center mt-10">
+            Login or Create Account to Join the Live Chat
+          </h3>
+        ) : (
+          <Messages currentUser={currentUser} />
+        )}
+      </div>
     </div>
   );
 };

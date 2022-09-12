@@ -19,7 +19,10 @@
     "nextjs-progressbar": "^0.0.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-progressbar-on-scroll": "^2.0.0",
     "react-query": "^3.39.1",
+    "react-responsive": "^9.0.0-beta.10",
+    "scss": "^0.2.4",
     "socket.io-client": "^4.5.1",
     "uuid": "^8.3.2"
   },

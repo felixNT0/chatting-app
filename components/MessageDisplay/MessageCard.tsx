@@ -9,8 +9,9 @@ import { Avatar, Card, Col, Form, Input, Modal, Row, Typography } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
+import { UserType } from "../../types/users";
 import styles from "./MessageCard.module.css";
 import {
   deleteLikes,
@@ -31,8 +32,9 @@ interface Props {
   result: any | undefined;
   refetch: any;
   isLoading: boolean;
-  currentUser: any;
+  currentUser: UserType[] | null;
   searchMessage: any;
+  values: string;
 }
 
 type MessageAuthorType = {
@@ -77,8 +79,9 @@ function MessageCard({
   isLoading,
   currentUser,
   searchMessage,
+  values,
 }: Props) {
-  const user = currentUser.find((user: any) => user.email);
+  const user = currentUser?.find((user: any) => user.email);
   const deleteMessageMutation = useMutation(deleteMessages, {
     onSuccess: () => {
       refetch();
@@ -108,25 +111,23 @@ function MessageCard({
       <div>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            {/* {searchMessage && !searchMessage.length && (
-              <h3>Sorry, Can't Find Message!</h3>
-            )} */}
+            {/* {!searchMessage && !result && <p>{`Search ${values} Not Found`}</p>} */}
             {(searchMessage ? searchMessage : result).map((mss: any) => (
               <div key={mss.id} className="mb-5">
-                {user.id === mss.user.id ? (
+                {user?.id === mss.user.id ? (
                   <div className="d-flex justify-end pr-5">
                     <Card
                       key={mss.id}
-                      style={{
-                        boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-                        width: "50%",
-                        marginTop: 16,
-                        border: "1px solid #1890ff",
-                      }}
+                      // style={{
+                      //   boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+                      //   width: "50%",
+                      //   marginTop: 16,
+                      //   border: "1px solid #1890ff",
+                      // }}
                       actions={[
                         <LikeButton
                           key="like"
-                          currentUserId={user.id}
+                          currentUserId={user?.id}
                           id={mss.id}
                         />,
                         <DeleteFilled
@@ -152,16 +153,16 @@ function MessageCard({
                   <div className="d-flex justify-start pl-5">
                     <Card
                       key={mss.id}
-                      style={{
-                        boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-                        width: "50%",
-                        marginTop: 16,
-                        border: "1px solid #1890ff",
-                      }}
+                      // style={{
+                      //   boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+                      //   width: "50%",
+                      //   marginTop: 16,
+                      //   border: "1px solid #1890ff",
+                      // }}
                       actions={[
                         <LikeButton
                           key="like"
-                          currentUserId={user.id}
+                          currentUserId={user?.id}
                           id={mss.id}
                         />,
                       ]}
@@ -198,8 +199,6 @@ export const EditModal = ({ refetch, id }: UserProps) => {
 
   const { data } = useQuery(["messageById", id], () => fetchMessagesById(id));
 
-  const result = data && data;
-
   const { mutate } = useMutation(editMessage, {
     onSuccess: (res) => {
       refetch();
@@ -224,7 +223,7 @@ export const EditModal = ({ refetch, id }: UserProps) => {
       <>
         <EditFilled style={{ color: "#1890ff" }} onClick={showModal} />
 
-        {result && (
+        {data && (
           <Form layout="vertical" form={form}>
             <Modal
               centered
@@ -237,7 +236,7 @@ export const EditModal = ({ refetch, id }: UserProps) => {
               <Form.Item
                 name="message"
                 style={{ textAlign: "center" }}
-                initialValue={result.message}
+                initialValue={data.message}
               >
                 <Input
                   size="large"
@@ -254,7 +253,7 @@ export const EditModal = ({ refetch, id }: UserProps) => {
 };
 
 type LikeProps = {
-  currentUserId: string;
+  currentUserId?: string;
   id: string;
 };
 

@@ -1,26 +1,11 @@
-import axios from "axios";
+import http from "../../libs/http";
 
-export const postData = async (data: any) => {
-  try {
-    return await axios.post("http://localhost:8000/users", data);
-  } catch (error) {
-    console.log(error);
-  }
+export const postData = () => http.get(`/users`);
+
+export const postCurrentUser = () => {
+  return http.post("/curerntUser");
 };
 
-export const postCurrentUser = async (data: any) => {
-  try {
-    return await axios.post("http://localhost:8000/curerntUser", data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const fetchUser = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/users");
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+export const fetchUser = () => {
+  return http.get(`/users`);
 };
